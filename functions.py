@@ -2,6 +2,8 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
+from sklearn.decomposition import PCA
+
 
 DATA_SIZE = 4323
 
@@ -43,6 +45,25 @@ def display_colour_histogram(hist, label):
     plt.bar(list(range(red_end, green_end)), hist[red_end:green_end], color='green')
     plt.bar(list(range(green_end, blue_end)), hist[green_end:blue_end], color='blue')
     plt.title(flower_dict[label])
+    plt.show()
+
+
+def display_pca(hist, label):
+    
+    pca = PCA(n_components=2)
+    X = pca.fit_transform(hist)
+
+    colour_dict = {
+        0 : 'yellow',
+        1 : 'gray',
+        2 : 'red',
+        3 : 'black',
+        4 : 'blue'
+    }
+
+    colour_sequence = [colour_dict[x] for x in label]
+
+    plt.scatter(X[:, 0], X[:, 1], c=colour_sequence)
     plt.show()
 
 
