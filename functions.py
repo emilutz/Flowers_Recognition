@@ -77,8 +77,7 @@ def display_pca(hist, label, dim):
 
 
 
-
-def extract_image_histograms(bins=100):
+def extract_image_histograms(bins=32):
     """This function loads the images and computes their
     colour histograms that will be used later"""
     
