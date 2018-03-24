@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from sklearn.decomposition import PCA
+from mpl_toolkits.mplot3d import Axes3D
 
 
 DATA_SIZE = 4323
@@ -48,23 +49,33 @@ def display_colour_histogram(hist, label):
     plt.show()
 
 
-def display_pca(hist, label):
+def display_pca(hist, label, dim):
     
-    pca = PCA(n_components=2)
-    X = pca.fit_transform(hist)
+	pca = PCA(n_components=dim)
+	X = pca.fit_transform(hist)
 
-    colour_dict = {
-        0 : 'yellow',
-        1 : 'gray',
-        2 : 'red',
-        3 : 'black',
-        4 : 'blue'
-    }
+	colour_dict = {
+	    0 : 'yellow',
+	    1 : 'gray',
+	    2 : 'red',
+	    3 : 'black',
+	    4 : 'blue'
+	}
 
-    colour_sequence = [colour_dict[x] for x in label]
+	colour_sequence = [colour_dict[x] for x in label]
 
-    plt.scatter(X[:, 0], X[:, 1], c=colour_sequence)
-    plt.show()
+	if dim == 2:
+		plt.scatter(X[:, 0], X[:, 1], c=colour_sequence)
+		plt.title('PCA 2 dimensions')
+		plt.show()
+	else:
+		fig = plt.figure()
+		ax = Axes3D(fig)
+		ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=colour_sequence)
+		plt.title('PCA 3 dimensions')
+		plt.show()
+
+
 
 
 def extract_image_histograms(bins=100):
