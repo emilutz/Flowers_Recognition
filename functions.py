@@ -109,3 +109,27 @@ def extract_image_histograms(bins=32):
             
     return (image_histograms, image_labels)
         
+
+def confussion_matrix(labels, predictions):
+	
+	# build the confussion matrix (populate the values)
+	conf_matrix = np.zeros((len(flower_dict), len(flower_dict)), dtype=np.int32)
+	for i in range(len(labels)):
+		conf_matrix[labels[i]][predictions[i]] += 1
+
+
+	# print the header of the table
+	print('{0:>9} | {1:>9}'.format('', flower_dict[0]), end='')
+	for i in range(1, len(flower_dict)):
+		print(' | {0:>9}'.format(flower_dict[i]), end='')
+	print('')
+
+	# print the values of the table
+	for i in range(len(flower_dict)):
+		print('{0:>9}'.format(flower_dict[i]), end="")
+		for j in range(len(flower_dict)):
+			print(' | {0:>9}'.format(conf_matrix[i, j]), end="")
+		print('') 
+
+
+
