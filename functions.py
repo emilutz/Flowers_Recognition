@@ -110,7 +110,7 @@ def extract_image_histograms(bins=32):
     return (image_histograms, image_labels)
         
 
-def confussion_matrix(labels, predictions):
+def confusion_matrix(labels, predictions):
 	
 	# build the confussion matrix (populate the values)
 	conf_matrix = np.zeros((len(flower_dict), len(flower_dict)), dtype=np.int32)
