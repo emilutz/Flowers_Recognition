@@ -1,7 +1,9 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
+from matplotlib.colors import rgb_to_hsv
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -35,6 +37,20 @@ def create_histogram_vector(img, bins):
     
     return np.concatenate([red_hist[0], green_hist[0], blue_hist[0]]) / (img.shape[0] * img.shape[1])
     
+
+def create_hsv_histogram(img, bins):
+    """This function creates the histogram vector for
+    every colour channel of th input image"""
+    
+    # convert image to hsv
+    img = rgb_to_hsv(img)
+
+    red_hist = np.histogram(img[:,:,0], bins=bins)
+    green_hist = np.histogram(img[:,:,1], bins=bins)
+    blue_hist = np.histogram(img[:,:,2], bins=bins)
+    
+    return np.concatenate([red_hist[0], green_hist[0], blue_hist[0]]) / (img.shape[0] * img.shape[1])
+
     
 def display_colour_histogram(hist, label):
     
@@ -101,7 +117,8 @@ def extract_image_histograms(bins=32):
             img = mpimg.imread(os.path.join(read_dir, clasz, img_name))
             
             # create colour histogram             
-            img_vector = create_histogram_vector(img, bins)
+            # img_vector = create_histogram_vector(img, bins)
+            img_vector = create_hsv_histogram(img, bins)
             image_histograms[index] = img_vector
             image_labels[index] = label_dict[clasz]
             
@@ -130,6 +147,3 @@ def confusion_matrix(labels, predictions):
 		for j in range(len(flower_dict)):
 			print(' | {0:>9}'.format(conf_matrix[i, j]), end="")
 		print('') 
-
-
-
