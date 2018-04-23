@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def display_confussion_matrix(conf_matrix, problem_type):
+def display_confussion_matrix(conf_matrix):
 
 	flower_dict = {
     0 : 'daisy',
