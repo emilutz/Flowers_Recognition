@@ -28,7 +28,7 @@ def read_and_decode(filename_queue):
 	return image, label
 
 
-def inputs(dataset_type, batch_size, num_epochs):
+def inputs(batch_size, num_epochs):
 
 	filename = os.path.join('tensorflow_data', 'training.tfrecords')
 
